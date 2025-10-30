@@ -65,14 +65,16 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));
   
   // Handle React routing - serve index.html for all non-API routes
-  // This catch-all route must be AFTER all API routes
-  app.get('*', (req, res) => {
+  // Use middleware instead of wildcard route to avoid path-to-regexp issues
+  app.use((req, res, next) => {
     // Skip API routes and socket.io routes
     if (req.path.startsWith('/api') || req.path.startsWith('/socket.io') || 
         req.path.startsWith('/health') || req.path.startsWith('/ping') || 
         req.path.startsWith('/metrics')) {
-      return res.status(404).json({ error: 'Endpoint not found' });
+      return next(); // Continue to next handler (will result in 404)
     }
+    
+    // For all other routes, serve React app
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
   });
 }
