@@ -1,18 +1,21 @@
-# Render deployment configuration - FREE TIER
+# Render Blueprint - Deploy InstaTalk Chat App
 # This file tells Render how to deploy your app
 
 services:
   - type: web
-    name: instatalk-app
+    name: instatalk-chat-app
     env: node
-    plan: free  # FREE TIER
+    plan: free
+    region: oregon
     buildCommand: npm ci --include=dev && npm run build && cd server && npm install --only=production
     startCommand: npm start
+    repo: https://github.com/RohanBidkar/ChatApp
+    branch: main
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://your-app-name.onrender.com
-    # Note: Free tier will sleep after 15 minutes of inactivity
+        sync: false
+    # Free tier sleeps after 15 minutes of inactivity
