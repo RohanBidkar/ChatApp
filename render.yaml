@@ -6,7 +6,7 @@ services:
     name: instatalk-app
     env: node
     plan: free  # FREE TIER
-    buildCommand: npm install && npm run build && cd server && npm install
+    buildCommand: npm ci --include=dev && npm run build && cd server && npm install --only=production
     startCommand: npm start
     envVars:
       - key: NODE_ENV
