@@ -1,0 +1,143 @@
+.message-input-container {
+  background: white;
+  border-top: 1px solid #e1e5e9;
+  padding: 1rem 2rem;
+}
+
+.message-form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.message-textarea {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 20px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  max-height: 120px;
+  min-height: 44px;
+  transition: border-color 0.2s ease;
+  background: #f8fafc;
+}
+
+.message-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+}
+
+.message-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.send-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: #667eea;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.send-button:hover:not(:disabled) {
+  background: #5a67d8;
+  transform: scale(1.05);
+}
+
+.send-button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.message-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.character-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.send-hint {
+  opacity: 0.7;
+}
+
+/* Auto-resize textarea */
+.message-textarea {
+  overflow-y: hidden;
+}
+
+@media (max-width: 768px) {
+  .message-input-container {
+    padding: 0.75rem;
+  }
+  
+  .message-textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .send-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .message-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .send-hint {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-input-container {
+    padding: 0.5rem;
+  }
+  
+  .message-textarea {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+  
+  .send-button {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .message-info {
+    font-size: 0.7rem;
+  }
+  
+  .send-hint {
+    display: none; /* Hide on very small screens */
+  }
+}

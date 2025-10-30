@@ -1,0 +1,75 @@
+.notification-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 300px;
+}
+
+.notification {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toast-success {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+}
+
+.toast-info {
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+}
+
+.toast-warning {
+  background: rgba(245, 158, 11, 0.9);
+  color: white;
+}
+
+.toast-error {
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .notification-container {
+    right: 10px;
+    top: 70px;
+    max-width: 250px;
+  }
+  
+  .notification {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
