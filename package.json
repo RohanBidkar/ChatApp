@@ -12,7 +12,7 @@
     "start": "cd server && npm start",
     "build:frontend": "vite build",
     "build:server": "cd server && npm install",
-    "build:all": "npm run build:frontend && npm run build:server",
+    "build:all": "npm install && npm run build:frontend && cd server && npm install",
     "dev:frontend": "vite",
     "dev:backend": "cd server && npm run dev",
     "install:server": "cd server && npm install"

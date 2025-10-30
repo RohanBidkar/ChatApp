@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "cd .. && npm install && npm run build",
-    "postinstall": "npm run build",
+    "build": "echo 'Server build complete'",
     "production": "NODE_ENV=production node index.js"
   },
   "keywords": [],
