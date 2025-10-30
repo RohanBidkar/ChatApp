@@ -29,21 +29,6 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 
-// Serve static files from React build in production
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  app.use(express.static(path.join(__dirname, '../dist')));
-  
-  // Handle React routing - serve index.html for all non-API routes
-  app.get('*', (req, res) => {
-    // Skip API routes
-    if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) {
-      return res.status(404).json({ error: 'API endpoint not found' });
-    }
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
-  });
-}
-
 // API Routes
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/auth', require('./routes/auth'));
@@ -68,12 +53,29 @@ app.get('/ping', (req, res) => {
 // Basic metrics endpoint
 app.get('/metrics', (req, res) => {
   res.json({
-    connectedUsers: io.engine.clientsCount,
     uptime: process.uptime(),
     memory: process.memoryUsage(),
     environment: process.env.NODE_ENV
   });
 });
+
+// Serve static files from React build in production
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.use(express.static(path.join(__dirname, '../dist')));
+  
+  // Handle React routing - serve index.html for all non-API routes
+  // This catch-all route must be AFTER all API routes
+  app.get('*', (req, res) => {
+    // Skip API routes and socket.io routes
+    if (req.path.startsWith('/api') || req.path.startsWith('/socket.io') || 
+        req.path.startsWith('/health') || req.path.startsWith('/ping') || 
+        req.path.startsWith('/metrics')) {
+      return res.status(404).json({ error: 'Endpoint not found' });
+    }
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+  });
+}
 
 // Initialize Socket.io with CORS configuration
 const io = new Server(server, {
